@@ -4,6 +4,7 @@ import os
 from typing import Any, Dict, List
 
 import yaml
+from rich.panel import Panel
 
 from compiler import compiler_base_dir
 from compiler.graph.pseudo_element_compiler import pseudo_gen_property
@@ -46,6 +47,13 @@ class AbsElement:
 
     def __str__(self):
         return "+".join(self.name)
+
+    def to_rich(self, position):
+        color = "dark_green" if position == "client" else "blue"
+        return Panel(
+            self.deploy_name,
+            style=color,
+        )
 
     def gen_property(self, pseudo: bool):
         """Generate properties of the element.
